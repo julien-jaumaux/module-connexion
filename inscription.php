@@ -6,7 +6,13 @@ if ($mysqli -> connect_errno){
     exit();
 }
 if(isset($_POST['submit'])){
-    if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['login']) && !empty($_POST['password'])){
+
+    if($_POST['password'] != $_POST['confirm_password']){
+        echo "Veuillez choisir deux password identiques";
+    
+
+    }
+    elseif(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['login']) && !empty($_POST['password'])){
 
     $nom = $_POST['nom'];
     $prenom = $_POST['prenom'];
@@ -14,8 +20,10 @@ if(isset($_POST['submit'])){
     $password = $_POST['password'];
     $request = $mysqli->query("INSERT INTO utilisateurs(nom,prenom,login,password) VALUES('$nom', '$prenom', '$login', '$password')");
     }
+
+
     header('location: connexion.php');
-   
+
 }
 
     
@@ -61,6 +69,7 @@ if(isset($_POST['submit'])){
     </div>
 
 <?php
+
 session_destroy();
 ?>
 </body>
